@@ -28,9 +28,23 @@ const deleteTasks = (deleteButton) => {
 };
 
 // 追加ボタンをクリックし、イベントを発動（タスクが追加）
+const addTaskByClick = () => {
+  const task = taskValue.value.trim();
+  if (task !== '') {
+    addTasks(task);
+    taskValue.value = '';
+  }
+};
+
 taskSubmit.addEventListener('click', evt => {
   evt.preventDefault();
-  const task = taskValue.value;
-  addTasks(task);
-  taskValue.value = '';
+  addTaskByClick();
+});
+
+// Enterキーを押した場合にもタスクが追加されるようにする
+taskValue.addEventListener('keypress', evt => {
+  if (evt.key === 'Enter') {
+    evt.preventDefault();
+    addTaskByClick();
+  }
 });
