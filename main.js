@@ -1,50 +1,80 @@
-const taskValue = document.getElementsByClassName('task_value')[0];
-const taskSubmit = document.getElementsByClassName('task_submit')[0];
-const taskList = document.getElementsByClassName('task_list')[0];
+let tagsArray = [];
+let tasksArray = [];
 
-// 追加ボタンを作成
-const addTasks = (task) => {
-  // 入力したタスクを追加・表示
-  const listItem = document.createElement('li');
-  const showItem = taskList.appendChild(listItem);
-  showItem.innerHTML = task;
+// タグを追加する関数
+function addTag() {
+  const tagInput = document.getElementById("tagInput");
+  const tag = tagInput.value.trim();
+  if (tag !== "") {
+    tagsArray.push(tag);
+    tagInput.value = "";
+    updateTagList();
+  }
+}
 
-  // タスクに削除ボタンを付与
-  const deleteButton = document.createElement('button');
-  deleteButton.innerHTML = 'Delete';
-  listItem.appendChild(deleteButton);
+// タスクを追加する関数
+function addTask() {
+  const taskInput = document.getElementById("taskInput");
+  const task = taskInput.value.trim();
+  if (task !== "") {
+    const activeTags = document.querySelectorAll(".tag-button.active");
+    activeTags.forEach((tagButton) => tagButton.classList.remove("active"));
 
-  // 削除ボタンをクリックし、イベントを発動（タスクが削除）
-  deleteButton.addEventListener('click', evt => {
-    evt.preventDefault();
-    deleteTasks(deleteButton);
+    tasksArray.push(task);
+    taskInput.value = "";
+    updateTaskList();
+  }
+}
+
+// タグ一覧を更新する関数
+function updateTagList() {
+  const tagsContainer = document.getElementById("tags");
+  tagsContainer.innerHTML = "";
+  tagsArray.forEach((tag) => {
+    const tagButton = document.createElement("button");
+    tagButton.textContent = tag;
+    tagButton.classList.add("tag-button");
+    tagButton.onclick = function () {
+      this.classList.toggle("active");
+      updateTaskList();
+    };
+    tagsContainer.appendChild(tagButton);
   });
-};
+}
 
-// 削除ボタンにタスクを消す機能を付与
-const deleteTasks = (deleteButton) => {
-  const chosenTask = deleteButton.closest('li');
-  taskList.removeChild(chosenTask);
-};
-
-// 追加ボタンをクリックし、イベントを発動（タスクが追加）
-const addTaskByClick = () => {
-  const task = taskValue.value.trim();
-  if (task !== '') {
-    addTasks(task);
-    taskValue.value = '';
-  }
-};
-
-taskSubmit.addEventListener('click', evt => {
-  evt.preventDefault();
-  addTaskByClick();
-});
-
-// Enterキーを押した場合にもタスクが追加されるようにする
-taskValue.addEventListener('keypress', evt => {
-  if (evt.key === 'Enter') {
-    evt.preventDefault();
-    addTaskByClick();
-  }
-});
+// タスク一覧を更新する関数
+function updateTaskList() {
+  const tasksList = document.getElementById("tasks");
+  tasksList.innerHTML = "";
+  const activeTags = document.querySelectorAll(".tag-button.active");
+  const activeTagsArray = Array.from(activeTags).map(
+    (tagButton) => tagButton.textContent
+  );
+  tasksArray.forEach((task) => {
+    if (activeTagsArray.length === 0) {
+      // すべてのタグが非アクティブの場合、全てのタスクを表示
+      const listItem = document.createElement("li");
+      listItem.textContent = task;
+      tasksList.appendChild(listItem);
+    } else {
+      // アクティブなタグに関連するタスクのみ表示
+      let found = false;
+      for (const tag of activeTagsArray) {
+        if (task.includes(tag)) {
+          found = true;
+          const listItem = document.createElement("li");
+          listItem.textContent = task;
+          tasksList.appendChild(listItem);
+          break;
+        }
+      }
+      if (!found) {
+        // タスクが一致するタグがなかった場合、非表示にする
+        const listItem = document.createElement("li");
+        listItem.textContent = task;
+        listItem.style.display = "none";
+        tasksList.appendChild(listItem);
+      }
+    }
+  });
+}

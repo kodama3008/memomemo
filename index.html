@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ToDoリスト</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+
+  <body>
+    <div id="container" class="flex-container">
+      <div id="tagList" class="sidebar">
+        <h2>Tag</h2>
+        <div>
+          <input type="text" id="tagInput" />
+          <div>
+            <button onclick="addTag()">Add</button>
+          </div>
+        </div>
+        <br>
+        <div id="tags"></div>
+      </div>
+  
+      <div id="taskList" class="list-container">
+        <h2>Task</h2>
+        <div>
+          <input type="text" id="taskInput" />
+          <button onclick="addTask()">Add</button>
+        </div>
+        <ul id="tasks"></ul>
+      </div>
+    </div>
+  
+    <script src="main.js"></script>
+  </body>
