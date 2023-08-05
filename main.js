@@ -1,11 +1,15 @@
 const taskValue = document.getElementsByClassName("task_value")[0];
 const taskSubmit = document.getElementsByClassName("task_submit")[0];
 const taskList = document.getElementsByClassName("task_list")[0];
+let counter = 0;
 
 // 追加ボタンを作成
 const addTasks = (task) => {
   // 入力したタスクを追加・表示
   const listItem = document.createElement("li");
+
+  listItem.setAttribute("id", "item" + counter);
+  counter++;
   const showItem = taskList.appendChild(listItem);
   showItem.innerHTML = task;
 
@@ -29,10 +33,10 @@ const deleteTasks = (deleteButton) => {
 
 // 追加ボタンをクリックし、イベントを発動（タスクが追加）
 taskSubmit.addEventListener("click", (evt) => {
-  evt.preventDefault();
-  const task = taskValue.value;
-  addTasks(task);
-  taskValue.value = "";
+  if (taskValue.value !== "") {
+    evt.preventDefault();
+    const task = taskValue.value;
+    addTasks(task);
+    taskValue.value = "";
+  }
 });
-
-// 追加ボタンをクリックし、イベントを発動（タスクが追加）
