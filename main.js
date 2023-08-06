@@ -26,6 +26,22 @@ function addTask() {
   }
 }
 
+document
+  .getElementById("taskInput")
+  .addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      addTask();
+    }
+  });
+
+document
+  .getElementById("tagInput")
+  .addEventListener("keypress", function (event) {
+    if (event.key === "Enter") {
+      addTag();
+    }
+  });
+
 // タグ一覧を更新する関数
 function updateTagList() {
   const tagsContainer = document.getElementById("tags");
@@ -42,7 +58,6 @@ function updateTagList() {
   });
 }
 
-// タスク一覧を更新する関数
 function updateTaskList() {
   const tasksList = document.getElementById("tasks");
   tasksList.innerHTML = "";
@@ -58,21 +73,16 @@ function updateTaskList() {
       tasksList.appendChild(listItem);
     } else {
       // アクティブなタグに関連するタスクのみ表示
-      let found = false;
+      let foundAllTags = true;
       for (const tag of activeTagsArray) {
-        if (task.includes(tag)) {
-          found = true;
-          const listItem = document.createElement("li");
-          listItem.textContent = task;
-          tasksList.appendChild(listItem);
+        if (!task.includes(tag)) {
+          foundAllTags = false;
           break;
         }
       }
-      if (!found) {
-        // タスクが一致するタグがなかった場合、非表示にする
+      if (foundAllTags) {
         const listItem = document.createElement("li");
         listItem.textContent = task;
-        listItem.style.display = "none";
         tasksList.appendChild(listItem);
       }
     }

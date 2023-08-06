@@ -6,19 +6,20 @@
   </head>
 
   <body>
+    <h1> シンプルMEMO</h1>
+    <p> シンプルなメモ帳です．タグでソートもできます．設定したタグは左のサイドバーに表示されます．</p>
+    <br />
     <div id="container" class="flex-container">
       <div id="tagList" class="sidebar">
         <h2>Tag</h2>
         <div>
           <input type="text" id="tagInput" />
-          <div>
-            <button onclick="addTag()">Add</button>
-          </div>
+          <button onclick="addTag()">Add</button>
         </div>
-        <br>
+        <br />
         <div id="tags"></div>
       </div>
-  
+
       <div id="taskList" class="list-container">
         <h2>Task</h2>
         <div>
@@ -28,6 +29,7 @@
         <ul id="tasks"></ul>
       </div>
     </div>
-  
+
     <script src="main.js"></script>
   </body>
+</html>
