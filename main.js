@@ -1,22 +1,21 @@
 const taskValue = document.getElementsByClassName("task_value")[0];
 const taskSubmit = document.getElementsByClassName("task_submit")[0];
-const taskList = document.getElementsByClassName("task_list")[0];
+const taskList = [];
+taskList = document.getElementsByClassName("task_list")[0];
 let counter = 0;
-const listItems = []; // 新しい配列 listItems を定義
 
-//削除された
+//タスクを生成
+const createTask = (task) => {};
 
 // 追加ボタンを作成
 const addTasks = (task) => {
   // 入力したタスクを追加・表示
   const listItem = document.createElement("li");
 
-  listItem.setAttribute("id", "item" + counter);
-  counter++;
+  // listItem.setAttribute("id", "item" + counter);
+  // counter++;
   const showItem = taskList.appendChild(listItem);
   showItem.innerHTML = task;
-
-  listItems.push(listItem); // 作成したリストアイテムを listItems 配列に追加
 
   // タスクに削除ボタンを付与
   const deleteButton = document.createElement("button");
@@ -41,7 +40,9 @@ taskSubmit.addEventListener("click", (evt) => {
   if (taskValue.value !== "") {
     evt.preventDefault();
     const task = taskValue.value;
+    createTask(task);
     addTasks(task);
     taskValue.value = "";
+    console.log(taskList);
   }
 });
