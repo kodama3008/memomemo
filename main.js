@@ -82,16 +82,32 @@ document
 // タスクのリストアイテムを作成する関数
 function createTaskListItem(task, index) {
   const listItem = document.createElement("li");
-  listItem.textContent = task;
 
+  const checkBox = document.createElement("input");
+  checkBox.type = "checkbox";
+  checkBox.classList.add("checkbox");
+  checkBox.onchange = function () {
+    if (checkBox.checked) {
+      listItem.style.textDecoration = "line-through";
+    } else {
+      listItem.style.textDecoration = "none";
+    }
+  };
+
+  const taskText = document.createElement("span");
+  taskText.textContent = task;
+  
   const deleteButton = document.createElement("button");
-  deleteButton.textContent = "Delete";
+  deleteButton.textContent = "🗑️";
   deleteButton.classList.add("delete-button");
   deleteButton.onclick = function () {
     deleteTask(index);
   };
 
+  listItem.appendChild(checkBox);
+  listItem.appendChild(taskText);
   listItem.appendChild(deleteButton);
+
   return listItem;
 }
 

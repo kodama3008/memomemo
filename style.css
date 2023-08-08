@@ -61,7 +61,12 @@ button {
 }
 
 #tasks li {
-  font-size: 16px;
+  font-size: 18px;
+}
+
+ul {
+  list-style-type: none;
+  padding-left: 10px;
 }
 
 .tag-button:hover {
@@ -74,16 +79,22 @@ button {
 }
 
 .delete-button {
+  background-color: #ffffff; 
   margin-left: 10px;
-  font-size: 14px;
-  padding: 3px 6px;
+  font-size: 12px;
+  padding: 2px 6px;
 }
 
 #searchModeToggle {
-  background-color: #08af90; /* ボタンの背景色を変更 */
-  color: white; /* ボタンのテキスト色を変更 */
-  padding: 8px 20px; /* ボタン内の余白を設定（上下 左右） */
+  background-color: #08af90; 
+  color: white;
+  padding: 8px 20px;
   margin-left: 20px;
   border: none;
   cursor: pointer;
+}
+
+.checkbox {
+  width: 15px; /* チェックボックスの幅 */
+  height: 15px; /* チェックボックスの高さ */
 }
