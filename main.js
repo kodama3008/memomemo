@@ -1,5 +1,6 @@
 let tagsArray = [];
 let tasksArray = [];
+let searchMode = "AND";
 
 // タグを追加する関数
 function addTag() {
@@ -58,6 +59,43 @@ function updateTagList() {
   });
 }
 
+// タスクを削除する関数
+function deleteTask(index) {
+  if (index >= 0 && index < tasksArray.length) {
+    tasksArray.splice(index, 1);
+    updateTaskList();
+  }
+}
+
+function toggleSearchMode() {
+  searchMode = searchMode === "AND" ? "OR" : "AND";
+  updateTaskList();
+  document.getElementById("searchModeToggle").innerHTML = "search mode: " + searchMode;
+}
+
+
+// モード切替ボタンのクリックイベントハンドラを追加
+document
+  .getElementById("searchModeToggle")
+  .addEventListener("click", toggleSearchMode);
+
+// タスクのリストアイテムを作成する関数
+function createTaskListItem(task, index) {
+  const listItem = document.createElement("li");
+  listItem.textContent = task;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "Delete";
+  deleteButton.classList.add("delete-button");
+  deleteButton.onclick = function () {
+    deleteTask(index);
+  };
+
+  listItem.appendChild(deleteButton);
+  return listItem;
+}
+
+// updateTaskList関数
 function updateTaskList() {
   const tasksList = document.getElementById("tasks");
   tasksList.innerHTML = "";
@@ -65,24 +103,25 @@ function updateTaskList() {
   const activeTagsArray = Array.from(activeTags).map(
     (tagButton) => tagButton.textContent
   );
-  tasksArray.forEach((task) => {
+
+  tasksArray.forEach((task, index) => {
     if (activeTagsArray.length === 0) {
-      // すべてのタグが非アクティブの場合、全てのタスクを表示
-      const listItem = document.createElement("li");
-      listItem.textContent = task;
+      const listItem = createTaskListItem(task, index);
       tasksList.appendChild(listItem);
     } else {
-      // アクティブなタグに関連するタスクのみ表示
-      let foundAllTags = true;
-      for (const tag of activeTagsArray) {
-        if (!task.includes(tag)) {
-          foundAllTags = false;
-          break;
+      let taskShouldBeShown = false;
+      if (searchMode == "AND") {
+        if (activeTagsArray.every((tag) => task.includes(tag))) {
+          taskShouldBeShown = true;
+        }
+      } else if (searchMode == "OR") {
+        if (activeTagsArray.some((tag) => task.includes(tag))) {
+          taskShouldBeShown = true;
         }
       }
-      if (foundAllTags) {
-        const listItem = document.createElement("li");
-        listItem.textContent = task;
+
+      if (taskShouldBeShown) {
+        const listItem = createTaskListItem(task, index);
         tasksList.appendChild(listItem);
       }
     }

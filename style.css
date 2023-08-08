@@ -26,7 +26,7 @@ body {
   background-color: #007bff;
   color: #fff;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 5px 10px;
   font-size: 15px;
   margin-left: 10px;
@@ -45,16 +45,45 @@ body {
 
 input[type="text"],
 button {
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 5px 10px;
   margin-bottom: 5px;
 }
 
 #tagInput {
+  margin-top: 20px;
   margin-left: 10px;
   width: 100px;
 }
 
+#taskInput {
+  margin-top: 20px;
+}
+
 #tasks li {
   font-size: 16px;
+}
+
+.tag-button:hover {
+  cursor: pointer;
+}
+
+#tagList button:hover,
+#taskList button:hover {
+  cursor: pointer;
+}
+
+.delete-button {
+  margin-left: 10px;
+  font-size: 14px;
+  padding: 3px 6px;
+}
+
+#searchModeToggle {
+  background-color: #08af90; /* ボタンの背景色を変更 */
+  color: white; /* ボタンのテキスト色を変更 */
+  padding: 8px 20px; /* ボタン内の余白を設定（上下 左右） */
+  margin-left: 20px;
+  border: none;
+  cursor: pointer;
 }
