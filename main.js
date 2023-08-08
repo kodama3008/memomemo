@@ -1,11 +1,14 @@
 const taskValue = document.getElementsByClassName("task_value")[0];
 const taskSubmit = document.getElementsByClassName("task_submit")[0];
-const taskList = [];
+let taskList = [];
 taskList = document.getElementsByClassName("task_list")[0];
 let counter = 0;
 
 //タスクを生成
-const createTask = (task) => {};
+const createTask = (task) => {
+  taskList.push(task);
+  console.log(taskList);
+};
 
 // 追加ボタンを作成
 const addTasks = (task) => {
