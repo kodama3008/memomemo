@@ -1,12 +1,18 @@
 const taskValue = document.getElementsByClassName("task_value")[0];
 const taskSubmit = document.getElementsByClassName("task_submit")[0];
 const taskList = document.getElementsByClassName("task_list")[0];
-const tasksArray = []; // タスクを格納する配列
+let tasksArray = [
+  { ID: "", title: "", time: "", data: "", place: "", tag: "" },
+]; // タスクを格納する配列
+let counter = 0;
 
 // タスクを生成
 const createTask = (task) => {
   console.log(task);
-  tasksArray.push(task); // タスクを配列に追加
+  // tasksArray.push(task); // タスクを配列に追加
+  tasksArray[0].ID = counter;
+  tasksArray[0].title = task;
+  counter++;
 };
 
 // 追加ボタンを作成
